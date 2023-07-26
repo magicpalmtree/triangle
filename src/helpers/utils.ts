@@ -1,5 +1,16 @@
 import { type Node } from 'reactflow';
 
+export const parseTriangleText = (text: string): number[][] =>
+  text
+    .trim()
+    .split('\n')
+    .map((line) =>
+      line
+        .trim()
+        .split(' ')
+        .map((item) => parseInt(item)),
+    );
+
 export const validateTriangleText = (text: string): boolean =>
   text
     .trim()
@@ -34,33 +45,30 @@ export const findMaxTotalAndPath = (triangle: number[][]): { maxTotal: number; p
 };
 
 export const generateNodes = (triangle: number[][], path: number[] = [], gap = 30): Node[] =>
-  triangle.reduce(
-    (nodes, row, rowIdx) =>
-      nodes.concat(
-        row.map((col, colIdx) => ({
-          id: `${rowIdx}-${colIdx}`,
-          position: { x: 0 - (gap / 2) * rowIdx + gap * colIdx, y: Math.sin(60 * (Math.PI / 180)) * gap * rowIdx },
-          data: {
-            value: col,
-          },
-          type: 'content',
-          draggable: false,
-          connectable: false,
-          selectable: false,
-          deletable: false,
-          style: {
-            borderRadius: '100%',
-            backgroundColor: colIdx === path[rowIdx] ? '#aaf' : '#fff',
-            border: '1px solid #ddd',
-            width: gap * 0.9,
-            height: gap * 0.9,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 10,
-          },
-        })),
-        [],
-      ),
-    [] as Node[],
+  ([] as Node[]).concat(
+    ...triangle.map((row, rowIdx) =>
+      row.map((col, colIdx) => ({
+        id: `${rowIdx}-${colIdx}-${Math.random()}`,
+        position: calcPosition(rowIdx, colIdx, gap),
+        data: {
+          value: col,
+          row: rowIdx,
+          active: colIdx === path[rowIdx],
+        },
+        type: 'content',
+        draggable: false,
+        connectable: false,
+        selectable: false,
+        deletable: false,
+        style: {
+          width: gap * 0.9,
+          height: gap * 0.9,
+        },
+      })),
+    ),
   );
+
+export const calcPosition = (row: number, col: number, gap: number): { x: number; y: number } => ({
+  x: 0 - (gap / 2) * row + gap * col,
+  y: Math.sin(60 * (Math.PI / 180)) * gap * row,
+});

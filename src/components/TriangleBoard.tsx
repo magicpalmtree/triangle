@@ -1,6 +1,8 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { Fragment, useState, useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
+import { Transition } from '@headlessui/react';
+import { useTimeoutFn } from 'react-use';
 import { ReactFlow, Background, Controls, ControlButton, Panel, useReactFlow } from 'reactflow';
 import { FolderOpenIcon } from '@heroicons/react/24/outline';
 import ErrorModal from '@/components/ErrorModal';
@@ -14,7 +16,25 @@ export default function TriangleBoard() {
   const { triangle, maxTotal, path, setTriangle } = useTriangle();
   const nodes = useMemo(() => generateNodes(triangle, path), [triangle, path]);
 
-  const ContentOnlyNode = ({ data: { value } }: { data: { value: number } }) => <>{value}</>;
+  const ContentOnlyNode = ({
+    data: { value, row, active },
+  }: {
+    data: { value: number; row: number; active: boolean };
+  }) => {
+    const [show, setShow] = useState<boolean>(false);
+    useTimeoutFn(() => active && setShow(true), row * 200);
+
+    return (
+      <div
+        className={clsx(
+          'flex h-full w-full items-center justify-center rounded-full border border-dotted bg-white text-[9px]',
+          show && 'animate-pulse bg-rose-400',
+        )}
+      >
+        {value}
+      </div>
+    );
+  };
   const nodeTypes = useMemo(() => ({ content: ContentOnlyNode }), []);
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +65,6 @@ export default function TriangleBoard() {
       </Controls>
       <Panel position="top-left">{maxTotal}</Panel>
       <Background />
-
       <ErrorModal open={showError} onClose={() => setShowError(false)} />
     </ReactFlow>
   );

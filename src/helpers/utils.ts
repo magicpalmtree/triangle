@@ -44,6 +44,11 @@ export const findMaxTotalAndPath = (triangle: number[][]): { maxTotal: number; p
   };
 };
 
+export const calcPosition = (row: number, col: number, gap: number): { x: number; y: number } => ({
+  x: 0 - (gap / 2) * row + gap * col,
+  y: Math.sin(60 * (Math.PI / 180)) * gap * row,
+});
+
 export const generateNodes = (triangle: number[][], path: number[] = [], gap = 30): Node[] =>
   ([] as Node[]).concat(
     ...triangle.map((row, rowIdx) =>
@@ -67,8 +72,3 @@ export const generateNodes = (triangle: number[][], path: number[] = [], gap = 3
       })),
     ),
   );
-
-export const calcPosition = (row: number, col: number, gap: number): { x: number; y: number } => ({
-  x: 0 - (gap / 2) * row + gap * col,
-  y: Math.sin(60 * (Math.PI / 180)) * gap * row,
-});

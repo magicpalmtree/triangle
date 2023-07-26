@@ -22,7 +22,7 @@ export default function TriangleBoard() {
     data: { value: number; row: number; active: boolean };
   }) => {
     const [show, setShow] = useState<boolean>(false);
-    useTimeoutFn(() => active && setShow(true), row * 200);
+    useTimeoutFn(() => active && setShow(true), row * 100);
 
     return (
       <div
@@ -59,7 +59,7 @@ export default function TriangleBoard() {
     <ReactFlow className="grow" nodeTypes={nodeTypes} nodes={nodes} onNodesChange={() => fitView()}>
       <Controls showInteractive={false}>
         <ControlButton onClick={() => fileRef.current?.click()} title="action">
-          <input ref={fileRef} type="file" className="sr-only" onChange={handleChangeFile} />
+          <input ref={fileRef} accept=".txt" type="file" className="sr-only" onChange={handleChangeFile} />
           <FolderOpenIcon className="mx-auto h-12 w-12" />
         </ControlButton>
       </Controls>

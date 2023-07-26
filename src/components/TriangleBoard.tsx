@@ -5,7 +5,7 @@ import { Transition } from '@headlessui/react';
 import { useTimeoutFn } from 'react-use';
 import { ReactFlow, Background, Controls, ControlButton, Panel, useReactFlow } from 'reactflow';
 import { FolderOpenIcon } from '@heroicons/react/24/outline';
-import ErrorModal from '@/components/ErrorModal';
+import ErrorNotification from '@/components/ErrorNotification';
 import useTriangle from '@/hooks/useTriangle';
 import { generateNodes } from '@/helpers/utils';
 
@@ -65,7 +65,7 @@ export default function TriangleBoard() {
       </Controls>
       <Panel position="top-left">{maxTotal}</Panel>
       <Background />
-      <ErrorModal open={showError} onClose={() => setShowError(false)} />
+      <ErrorNotification open={showError} onClose={() => setShowError(false)} />
     </ReactFlow>
   );
 }

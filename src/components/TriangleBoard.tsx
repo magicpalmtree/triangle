@@ -1,7 +1,5 @@
-import { Fragment, useState, useEffect, useMemo, useRef } from 'react';
-import Image from 'next/image';
+import { useState, useMemo, useRef } from 'react';
 import clsx from 'clsx';
-import { Transition } from '@headlessui/react';
 import { useTimeoutFn } from 'react-use';
 import { ReactFlow, Background, Controls, ControlButton, Panel, useReactFlow } from 'reactflow';
 import { FolderOpenIcon } from '@heroicons/react/24/outline';
@@ -63,7 +61,9 @@ export default function TriangleBoard() {
           <FolderOpenIcon className="mx-auto h-12 w-12" />
         </ControlButton>
       </Controls>
-      <Panel position="top-left">{maxTotal}</Panel>
+      <Panel id="max-total" position="top-left">
+        {maxTotal}
+      </Panel>
       <Background />
       <ErrorNotification open={showError} onClose={() => setShowError(false)} />
     </ReactFlow>

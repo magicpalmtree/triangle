@@ -2,7 +2,6 @@
 
 import { ReactFlowProvider } from 'reactflow';
 import TriangleBoard from '@/components/TriangleBoard';
-import { Transition } from '@headlessui/react';
 
 export default function Home() {
   return (

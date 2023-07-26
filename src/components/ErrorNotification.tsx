@@ -2,7 +2,6 @@ import { Fragment, useEffect } from 'react';
 import { Transition } from '@headlessui/react';
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import { useTimeoutFn } from 'react-use';
 
 interface ErrorNotificationProps {
   open: boolean;
@@ -14,7 +13,7 @@ export default function ErrorNotification({ open, onClose }: ErrorNotificationPr
     if (open) {
       setTimeout(() => onClose(), 2000);
     }
-  }, [open]);
+  }, [open, onClose]);
 
   return (
     <>

@@ -26,7 +26,7 @@ export default function TriangleBoard() {
       <div
         className={clsx(
           'flex h-full w-full items-center justify-center rounded-full border border-dotted bg-white text-[9px]',
-          show && 'animate-pulse bg-rose-400',
+          show && 'animate-pulse bg-pink-400',
         )}
       >
         {value}
@@ -56,12 +56,12 @@ export default function TriangleBoard() {
   return (
     <ReactFlow className="grow" nodeTypes={nodeTypes} nodes={nodes} onNodesChange={() => fitView()}>
       <Controls showInteractive={false}>
-        <ControlButton onClick={() => fileRef.current?.click()} title="action">
+        <ControlButton onClick={() => fileRef.current?.click()} title="open">
           <input ref={fileRef} accept=".txt" type="file" className="sr-only" onChange={handleChangeFile} />
           <FolderOpenIcon className="mx-auto h-12 w-12" />
         </ControlButton>
       </Controls>
-      <Panel id="max-total" position="top-left">
+      <Panel id="max-total" position="top-left" className="text-5xl font-bold">
         {maxTotal}
       </Panel>
       <Background />

@@ -5,27 +5,25 @@ interface UseTriangleReturn {
   triangle: number[][];
   maxTotal: number;
   path: number[];
-  setTriangle: (raw: string) => boolean;
+  setTriangle: (raw: string) => void;
 }
 
 export default function useTriangle(initialRawText: string = '5\n9 6\n4 6 8\n0 7 1 5\n8 3 1 1 2'): UseTriangleReturn {
-  const [raw, setRaw] = useState<string>(initialRawText);
-  const triangle: number[][] = useMemo(() => parseTriangleText(raw), [raw]);
+  const [triangle, setTriangle] = useState<number[][]>(parseTriangleText(initialRawText));
   const { maxTotal, path } = useMemo(() => findMaxTotalAndPath(triangle), [triangle]);
 
-  const setTriangle = useCallback((raw: string): boolean => {
+  const parseTriangle = useCallback((raw: string) => {
     if (!validateTriangleText(raw)) {
-      return false;
+      throw new Error('Invalid Triangle File');
     }
 
-    setRaw(raw);
-    return true;
+    setTriangle(parseTriangleText(raw));
   }, []);
 
   return {
     triangle,
     maxTotal,
     path,
-    setTriangle,
+    setTriangle: parseTriangle,
   };
 }

@@ -25,8 +25,9 @@ export default function TriangleBoard() {
     return (
       <div
         className={clsx(
-          'flex h-full w-full items-center justify-center rounded-full border border-dotted bg-white text-[9px]',
-          show && 'animate-pulse bg-pink-400',
+          'flex h-full w-full items-center justify-center rounded-full border border-dotted text-[9px]',
+          show && 'animate-pulse bg-rose-400',
+          !show && 'bg-white',
         )}
       >
         {value}

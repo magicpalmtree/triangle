@@ -44,13 +44,30 @@ export default function TriangleBoard() {
 
       const reader = new FileReader();
       reader.onload = function () {
-        if (typeof this.result !== 'string' || !setTriangle(this.result)) {
-          e.target.value = '';
-          setShowError(true);
+        if (typeof this.result !== 'string') {
+          showErrorNotification();
+          return;
         }
+
+        try {
+          setTriangle(this.result);
+        } catch (err) {
+          showErrorNotification();
+        }
+      };
+      reader.onerror = function () {
+        showErrorNotification();
       };
 
       reader.readAsText(file);
+    }
+  };
+
+  const showErrorNotification = () => {
+    setShowError(true);
+
+    if (fileRef.current) {
+      fileRef.current.value = '';
     }
   };
 

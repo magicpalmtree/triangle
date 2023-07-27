@@ -11,7 +11,7 @@ describe('Home', () => {
       unobserve: jest.fn(),
     }));
 
-  it('input invalid triangle text', async () => {
+  it('show invalid notification when input invalid triangle text', async () => {
     const { container } = render(<Home />);
 
     const file = new File(['0 5\n9 6\n4 6 8\n0 7 1 5\n8 3 1 1 2'], 'triangle.txt', { type: 'text/plain' });
@@ -26,11 +26,11 @@ describe('Home', () => {
     }
 
     await waitFor(() => {
-      expect(container).toHaveTextContent('Invalid File');
+      expect(container).toHaveTextContent('Invalid Triangle File');
     });
   });
 
-  it('get correct max total', async () => {
+  it('show correct max total', async () => {
     const { container } = render(<Home />);
 
     const file = new File(['5\n9 6\n4 6 8\n0 7 1 5\n8 3 1 1 2'], 'triangle.txt', { type: 'text/plain' });

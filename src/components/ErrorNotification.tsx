@@ -39,7 +39,7 @@ export default function ErrorNotification({ open, onClose }: ErrorNotificationPr
                     <XCircleIcon className="h-6 w-6 text-rose-400" aria-hidden="true" />
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
-                    <p className="text-sm font-medium text-rose-900">Invalid File</p>
+                    <p className="text-sm font-medium text-rose-900">Invalid Triangle File</p>
                   </div>
                   <div className="ml-4 flex flex-shrink-0">
                     <button
